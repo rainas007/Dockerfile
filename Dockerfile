@@ -11,7 +11,11 @@ ENV MYPATH /usr/local
 WORKDIR $MYPATH
 #配置java和tomcat的环境变量
 ENV JAVA_HOME /usr/local/jdk1.8.0_271
-ENV CLASSPATH 
+ENV CLASSPATH $JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 ENV CATALINA_HOME /usr/local/apache-tomcat-9.0.39
 ENV CATALINA_BASE /usr/local/apache-tomcat-9.0.39
 ENV PATH $PATH:$JAVA_HOME/bin:$CATALINA_HOME/lib:$CATALINA_HOME/bin
+#容器运行的端口
+EXPOSE 8080
+#启动时运行TOMCAT
+CMD $CATALINA_HOME/bin/startup.sh && tail -F $CATALINA_HOME/logs/catalina.out
